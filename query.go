@@ -8,7 +8,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/shurcooL/graphql/ident"
+	"github.com/yp19/graphql/ident"
 )
 
 func constructQuery(v interface{}, variables map[string]interface{}) string {
@@ -72,7 +72,7 @@ func writeArgumentType(w io.Writer, t reflect.Type, value bool) {
 	default:
 		// Named type. E.g., "Int".
 		name := t.Name()
-		if name == "string" { // HACK: Workaround for https://github.com/shurcooL/githubv4/issues/12.
+		if name == "string" { // HACK: Workaround for https://github.com/yp19/githubv4/issues/12.
 			name = "ID"
 		}
 		io.WriteString(w, name)
