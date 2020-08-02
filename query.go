@@ -6,6 +6,7 @@ import (
 	"io"
 	"reflect"
 	"sort"
+	"strings"
 
 	"github.com/shurcooL/graphql/ident"
 )
@@ -44,11 +45,12 @@ func queryArguments(variables map[string]interface{}) string {
 		io.WriteString(&buf, k)
 		io.WriteString(&buf, ":")
 		writeArgumentType(&buf, reflect.TypeOf(variables[k]), true)
+		io.WriteString(&buf, ",")
 		// Don't insert a comma here.
 		// Commas in GraphQL are insignificant, and we want minified output.
 		// See https://facebook.github.io/graphql/October2016/#sec-Insignificant-Commas.
 	}
-	return buf.String()
+	return strings.TrimRight(buf.String(), ",")
 }
 
 // writeArgumentType writes a minified GraphQL type for t to w.
